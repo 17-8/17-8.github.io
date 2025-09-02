@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuntutan Rakyat Indonesia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --p: #ff69b4;
+      --pd: #c73b7a;
+      --s: #ff8dc7;
+      --ga: #00c853;
+      --gl: #81c784;
+      --d: #004400;
+      --l: #f0fff0;
+      --ra: #ff4040;
+      --t: 0.4s cubic-bezier(0.76, 0.06, 0.24, 0.95);
+      --ps: 800px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--d);
+      color: var(--l);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(0, 68, 0, 0.8) 0%, rgba(0, 40, 0, 1) 100%);
+      z-index: -1;
+    }
+
+    .sp {
+      position: fixed;
+      width: min(35vw, 35vh);
+      height: min(35vw, 35vh);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%,
+          var(--p),
+          var(--s) 50%,
+          var(--gl) 80%,
+          var(--d) 95%);
+      filter: blur(2px);
+      transform-style: preserve-3d;
+      animation: fl 20s infinite ease-in-out;
+      box-shadow:
+        0 0 80px rgba(0, 100, 0, 0.5),
+        inset 0 0 60px rgba(255, 105, 180, 0.6);
+      z-index: -1;
+      right: 5%;
+      top: 20%;
+    }
+
+    .sp::before,
+    .sp::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 70% 70%,
+          transparent 40%,
+          var(--p) 60%,
+          var(--ga) 75%,
+          transparent 85%);
+      opacity: 0.7;
+      filter: blur(8px);
+      mix-blend-mode: screen;
+      animation: rot 15s infinite linear;
+    }
+
+    .sp::after {
+      top: -20%;
+      left: 10%;
+      width: 90%;
+      height: 90%;
+      animation: rot 12s infinite linear reverse;
+      background:
+        radial-gradient(circle at 30% 30%,
+          transparent 20%,
+          var(--gl) 40%,
+          var(--s) 60%,
+          transparent 80%);
+    }
+
+    .rp {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .rpl {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      transform: translate(-50%, -50%) scale(0);
+      animation: rpe 7s infinite linear;
+      top: 30%;
+      left: 50%;
+    }
+
+    .rpl:nth-child(2) {
+      animation-delay: 2s;
+      border-color: rgba(0, 200, 83, 0.4);
+    }
+
+    .rpl:nth-child(3) {
+      animation-delay: 4s;
+      border-color: rgba(255, 64, 64, 0.4);
+    }
+
+    .mc {
+      position: relative;
+      padding: 2vh 5vw;
+      z-index: 10;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hd {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      color: var(--p);
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .sb {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 500;
+      margin-bottom: 30px;
+      color: var(--l);
+      max-width: 70%;
+    }
+
+    .cnt {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    .sct {
+      position: relative;
+      overflow: visible;
+    }
+
+    .ht {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .nbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+      background: var(--p);
+      color: white;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 5rem;
+      box-shadow: 0 10px 30px rgba(199, 59, 122, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .ht-txt {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ht-main {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--p);
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+
+    .ht-sub {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 500;
+      color: var(--l);
+      margin-top: 5px;
+    }
+
+    .dl {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--ra);
+      color: white;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .dem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .dem {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 20px 25px;
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid var(--p);
+      transition: transform var(--t), box-shadow var(--t);
+      height: 100%;
+      text-align: left;
+    }
+
+    .dem:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .dem::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255, 105, 180, 0.1), transparent);
+      z-index: -1;
+    }
+
+    .dem-num {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.1);
+      line-height: 1;
+    }
+
+    .dem-txt {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dem-txt strong {
+      color: var(--p);
+      font-weight: 700;
+    }
+
+    .sct-2 .nbox {
+      background: var(--ga);
+      box-shadow: 0 10px 30px rgba(0, 200, 83, 0.3);
+    }
+
+    .sct-2 .ht-main {
+      color: var(--ga);
+    }
+
+    .sct-2 .dem {
+      border-left-color: var(--ga);
+    }
+
+    .sct-2 .dem::before {
+      background: linear-gradient(45deg, rgba(0, 200, 83, 0.1), transparent);
+    }
+
+    .sct-2 .dem-txt strong {
+      color: var(--ga);
+    }
+
+    .tl {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 2.5rem);
+      font-weight: 400;
+      font-style: italic;
+      color: #ffffff;
+      line-height: 1.4;
+      text-align: center;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.02em;
+      max-width: 90%;
+      margin: 30px auto 30px;
+    }
+
+    .hl {
+      display: inline-block;
+      position: relative;
+      color: #ff4040;
+      font-weight: 900;
+      padding: 0 0.1em;
+    }
+
+    .hl::after {
+      content: '';
+      position: absolute;
+      bottom: 0.05em;
+      left: 0;
+      width: 100%;
+      height: 0.08em;
+      background-color: rgba(255, 64, 64, 0.6);
+      animation: lp 3s infinite;
+    }
+
+    .cr {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    @keyframes fl {
+      0%, 100% {
+        transform: translateY(0) rotateX(5deg) rotateY(5deg);
+      }
+      50% {
+        transform: translateY(-20px) rotateX(-5deg) rotateY(-5deg);
+      }
+    }
+
+    @keyframes rot {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rpe {
+      0% {
+        width: 10px;
+        height: 10px;
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0);
+      }
+      100% {
+        width: min(80vw, 80vh);
+        height: min(80vw, 80vh);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes lp {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scaleX(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sp {
+        width: 50vw;
+        height: 50vw;
+        position: absolute;
+        top: 10%;
+        right: -10%;
+      }
+      .sb {
+        max-width: 100%;
+      }
+      .dem-grid {
+        grid-template-columns: 1fr;
+      }
+      .ht {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .nbox {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+      }
+      .ht-txt {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rp">
+    <div class="rpl"></div>
+    <div class="rpl"></div>
+    <div class="rpl"></div>
+  </div>
+  
+  <div class="sp"></div>
+
+  <div class="mc">
+    <h1 class="hd">Tuntutan Rakyat Indonesia</h1>
+    <p class="sb">Semangat, berani, dan peduli demi pemulihan bangsa dan perjuangan demokratis.</p>
+
+    <div class="cnt">
+      <div class="sct">
+        <div class="ht">
+          <div class="nbox">17</div>
+          <div class="ht-txt">
+            <div class="ht-main">Tuntutan Rakyat Dalam 1 Minggu</div>
+            <div class="ht-sub">Perubahan cepat untuk masa depan lebih baik</div>
+            <div class="dl">DEADLINE: 5 SEPTEMBER 2025</div>
+          </div>
+        </div>
+        
+        <div class="dem-grid">
+          <div class="dem">
+            <div class="dem-num">01</div>
+            <div class="dem-txt">Tarik <strong>TNI dari pengamanan sipil</strong> dan pastikan tidak ada kriminalisasi demonstran.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">02</div>
+            <div class="dem-txt">Bentuk <strong>Tim Investigasi Independen</strong> kasus Affan Kurniawan, Umar Amarudin, maupun semua korban kekerasan aparat selama demonstrasi 28-30 Agustus dengan mandat jelas dan transparan.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">03</div>
+            <div class="dem-txt"><strong>Bekukan kenaikan gaji/tunjangan</strong> anggota DPR dan batalkan fasilitas baru (termasuk pensiun).</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">04</div>
+            <div class="dem-txt">Publikasikan <strong>transparansi anggaran</strong> (gaji, tunjangan, rumah, fasilitas DPR).</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">05</div>
+            <div class="dem-txt">Dorong <strong>Badan Kehormatan DPR</strong> periksa anggota yang bermasalah (termasuk selidiki melalui KPK).</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">06</div>
+            <div class="dem-txt">Pecat atau jatuhkan <strong>sanksi tegas</strong> kepada kader DPR yang tidak etis dan memicu kemarahan publik.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">07</div>
+            <div class="dem-txt">Umumkan <strong>komitmen partai</strong> untuk berpihak pada rakyat di tengah krisis.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">08</div>
+            <div class="dem-txt">Libatkan kader dalam <strong>ruang dialog publik</strong> bersama mahasiswa serta masyarakat sipil.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">09</div>
+            <div class="dem-txt">Bebaskan <strong>seluruh demonstran</strong> yang ditahan.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">10</div>
+            <div class="dem-txt">Hentikan <strong>tindakan kekerasan polisi</strong> dan taati SOP pengendalian massa yang sudah tersedia.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">11</div>
+            <div class="dem-txt">Tangkap dan <strong>proses hukum secara transparan</strong> anggota dan komandan yang melakukan dan memerintahkan tindakan kekerasan dan melanggar HAM.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">12</div>
+            <div class="dem-txt">Segera <strong>kembali ke barak</strong>, hentikan keterlibatan dalam pengamanan sipil.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">13</div>
+            <div class="dem-txt">Tegakkan <strong>disiplin internal</strong> agar anggota TNI tidak mengambil alih fungsi Polri.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">14</div>
+            <div class="dem-txt"><strong>Komitmen publik TNI</strong> untuk tidak memasuki ruang sipil selama krisis demokrasi.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">15</div>
+            <div class="dem-txt">Pastikan <strong>upah layak</strong> untuk seluruh angkatan kerja (termasuk namun tidak terbatas pada guru, buruh, nakes, dan mitra ojol) di seluruh Indonesia.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">16</div>
+            <div class="dem-txt">Ambil <strong>langkah darurat</strong> untuk mencegah PHK massal dan lindungi buruh kontrak.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">17</div>
+            <div class="dem-txt">Buka <strong>dialog dengan serikat buruh</strong> untuk solusi upah minimum dan outsourcing.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sct sct-2">
+        <div class="ht">
+          <div class="nbox">8</div>
+          <div class="ht-txt">
+            <div class="ht-main">Tuntutan Rakyat Dalam 1 Tahun</div>
+            <div class="ht-sub">Reformasi struktural untuk Indonesia yang lebih adil</div>
+            <div class="dl">DEADLINE: 31 AGUSTUS 2026</div>
+          </div>
+        </div>
+        
+        <div class="dem-grid">
+          <div class="dem">
+            <div class="dem-num">01</div>
+            <div class="dem-txt"><strong>Bersihkan dan Reformasi DPR Besar-Besaran.</strong> Lakukan audit independen yang diumumkan ke publik. Tinggikan standar prasayarat anggota DPR (tolak mantan koruptor) dan tetapkan KPI untuk evaluasi kinerja. Hapuskan perlakuan istimewa: pensiun seumur hidup, transportasi dan pengawalan khusus, dan pajak ditanggung APBN.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">02</div>
+            <div class="dem-txt"><strong>Reformasi Partai Politik dan Kuatkan Pengawasan Eksekutif.</strong> Partai politik harus mempublikasikan laporan keuangan pertama mereka dalam tahun ini, dan DPR harus memastikan oposisi berfungsi sebagaimana mestinya.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">03</div>
+            <div class="dem-txt"><strong>Susun Rencana Reformasi Perpajakan yang Lebih Adil.</strong> Pertimbangkan kembali keseimbangan transfer APBN dari pusat ke daerah; batalkan rencana kenaikan pajak yang memberatkan rakyat dan susun rencana reformasi perpajakan yang lebih adil.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">04</div>
+            <div class="dem-txt"><strong>Sahkan dan Tegakkan UU Perampasan Aset Koruptor.</strong> DPR harus segera mengesahkan RUU Perampasan Aset dalam masa sidang tahun ini untuk menunjukkan komitmen serius memberantas korupsi, diiringi dengan penguatan independensi KPK dan UU Tipikor.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">05</div>
+            <div class="dem-txt"><strong>Reformasi Kepemimpinan dan Sistem di Kepolisian agar Profesional dan Humanis.</strong> DPR harus merevisi UU Kepolisian. Desentralisasi fungsi polisi: ketertiban umum, keamanan, dan lalu lintas dalam 12 bulan sebagai langkah awal.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">06</div>
+            <div class="dem-txt"><strong>TNI Kembali ke Barak, Tanpa Pengecualian.</strong> Pemerintah harus mencabut mandat TNI dari proyek sipil seperti pertanian skala besar (food estate) tahun ini, dan DPR harus mulai revisi UU TNI.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">07</div>
+            <div class="dem-txt"><strong>Perkuat Komnas HAM dan Lembaga Pengawas Independen.</strong> DPR harus merevisi UU Komnas HAM untuk memperluas kewenangannya terhadap kebebasan berekspresi. Presiden harus memperkuat Ombudsman serta Kompolnas.</div>
+          </div>
+          <div class="dem">
+            <div class="dem-num">08</div>
+            <div class="dem-txt"><strong>Tinjau Ulang Kebijakan Sektor Ekonomi & Ketenagakerjaan.</strong> Tinjau serius kebijakan PSN & prioritas ekonomi dengan melindungi hak masyarakat adat dan lingkungan. Evaluasi UU Cipta Kerja yang memberatkan rakyat khususnya buruh, evaluasi audit tata kelola Danautara dan BUMN.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="tl">"Dalam perjuangan untuk keadilan dan demokrasi, suara rakyat adalah kekuatan perubahan. <span class="hl">Bersatu, teguh, dan tidak tergoyahkan.</span>"</p>
+
+    <p class="cr">© 2025 felexandro</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const s = document.querySelector('.sp');
+      document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.clientX) / 40;
+        const y = (window.innerHeight / 2 - e.clientY) / 40;
+        s.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+      });
+    });
+  </script>
+</body>
+
+</html> 
